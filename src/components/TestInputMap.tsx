@@ -1,11 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { YMaps, Map, Placemark, RoutePanel } from '@pbe/react-yandex-maps';
-import '../styles/App.css';
-import { apiKEY } from 'utils/const';
+import { apiKEY } from '../utils/const.ts';
 
 const TestInputMap: FC = () => {
 	const [address, setAddress] = useState('');
-	const [cords, setCords] = useState(null);
+	const [cords, setCords] = useState<[number, number] | null>(null);
 
 	useEffect(() => {
 		try {
@@ -17,9 +16,6 @@ const TestInputMap: FC = () => {
 						if (featureMember && featureMember.length > 0) {
 							const coordinates = featureMember[0].GeoObject.Point.pos.split(' ');
 							setCords([parseFloat(coordinates[1]), parseFloat(coordinates[0])]);
-							console.log(data);
-						} else {
-							console.log('Адрес не найден');
 						}
 					});
 			}
@@ -27,16 +23,16 @@ const TestInputMap: FC = () => {
 			console.log(e);
 		}
 	}, [address]);
-	console.log('Координаты города', cords);
 
 	const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setAddress(event.target.value);
 	};
 
 	return (
-		<>
+		<div>
 			<YMaps
 				query={{
+					apikey: apiKEY,
 					ns: 'use-load-option',
 					load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon',
 				}}
@@ -50,22 +46,23 @@ const TestInputMap: FC = () => {
 						controls: ['zoomControl', 'fullscreenControl'],
 					}}
 				>
+					<p>Свой инпут</p>
 					<input
 						className='map__input'
 						value={address}
 						onChange={inputChange}
 					/>
 					<Placemark
-						geometry={cords}
+						geometry={cords || [50, 37]}
 						properties={{
 							balloonContentBody:
 								'ЙА МЕТКА',
 						}}
 					/>
-					<RoutePanel options={{ float: "right" }} />
+					<RoutePanel options={{ float: 'right' }} />
 				</Map>
 			</YMaps>;
-		</>
+		</div>
 	);
 };
 
