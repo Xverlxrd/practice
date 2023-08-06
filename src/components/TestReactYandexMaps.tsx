@@ -4,7 +4,12 @@ import { FC } from 'react';
 import { TestReactYandexMapsProps } from './TestReactYandexMaps.props.ts';
 
 
-const TestReactYandexMaps:FC<TestReactYandexMapsProps> = ({center, placeMarkCords, apiKey}) => {
+const TestReactYandexMaps:FC<TestReactYandexMapsProps> =
+    ({
+         center,
+         placeMarkCords,
+         apiKey
+    }) => {
 
     return (
         <div>
