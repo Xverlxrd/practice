@@ -2,6 +2,7 @@ import TestReactYandexMaps from '../components/TestReactYandexMaps.tsx';
 import '../style/App.css'
 import { apiKEY } from '../utils/const.ts';
 import { marksCord } from '../utils/placemarks.ts';
+import { lineCord } from '../utils/line.ts';
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
                     center={[56.49661, 84.95804]}
                     apiKey={apiKEY}
                     placeMarkCords={marksCord}
+                    lineCord={lineCord}
                 />
         </div>
     );

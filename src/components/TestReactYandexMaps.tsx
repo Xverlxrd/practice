@@ -1,5 +1,4 @@
 import { SearchControl, YMaps, Map, Placemark, RouteEditor, RoutePanel, Polyline } from '@pbe/react-yandex-maps';
-import { lineCord } from '../utils/line.ts';
 import { FC } from 'react';
 import { TestReactYandexMapsProps } from './TestReactYandexMaps.props.ts';
 
@@ -8,7 +7,8 @@ const TestReactYandexMaps:FC<TestReactYandexMapsProps> =
     ({
          center,
          placeMarkCords,
-         apiKey
+         apiKey,
+         lineCord
     }) => {
 
     return (
@@ -34,7 +34,15 @@ const TestReactYandexMaps:FC<TestReactYandexMapsProps> =
                             key={mark.text}
                             geometry={mark.cord}
                             properties={{
-                                balloonContentBody: `Это ${mark.text} и его координаты: ${mark.cord}`,
+                                balloonContentBody: [
+                                    '<div>',
+                                    '<address>',
+                                    `<strong>${mark.text}</strong>`,
+                                    '<br/>',
+                                    `Координаты ${mark.cord[0] + ', ' + mark.cord[1]}`,
+                                    '</address>',
+                                    '</div>'
+                                ].join(''),
                             }}
                             options={{
                                 iconLayout: 'default#image',

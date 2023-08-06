@@ -7,4 +7,5 @@ export interface TestReactYandexMapsProps {
     apiKey: string
     placeMarkCords: IPlaceMark[]
     center: number[]
+    lineCord: any
 }
